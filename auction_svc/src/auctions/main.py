@@ -3,9 +3,9 @@ import logging
 from fastapi import Depends, FastAPI
 
 from auctions.config import settings
-from auctions.seed import init_db
-from auctions.repositories import ItemRepository
 from auctions.database import get_db
+from auctions.repositories import ItemRepository
+from auctions.seed import init_db
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,5 +31,5 @@ async def root():
 async def get_all(session=Depends(get_db)):
     repo = ItemRepository(session=session)
     items = await repo.get_all()
-    logging.info(f"items: {items}")
+    logging.info("items: %s", items)
     return {}

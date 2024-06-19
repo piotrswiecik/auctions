@@ -1,8 +1,9 @@
 """
 Database management tools - mostly for development.
 """
-import uuid
+
 import logging
+import uuid
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -43,5 +44,3 @@ def init_db():
 
         session.add_all([item_1, item_2])
         session.commit()
-
-        
