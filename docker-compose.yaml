@@ -43,9 +43,17 @@ services:
     ports:
       - "80:80"
       - "8080:8080"
-    command: --api.insecure=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TRAEFIK_API_INSECURE=true
+      - TRAEFIK_ENTRYPOINTS_HTTPENTRY_ADDRESS=:80
+      - TRAEFIK_ENTRYPOINTS_HTTPENTRY_ASDEFAULT=true
+      - TRAEFIK_ENTRYPOINTS_HTTPENTRY_HTTP_TLS=false
+      - TRAEFIK_ACCESSLOG=true
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=auctions
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
 
   # keycloak identity provider service in dev mode
   idp:
@@ -58,13 +66,31 @@ services:
     ports:
       - "8081:8080"
 
-  auctions:
+  auctions-svc:
     build:
       context: auction_svc
       dockerfile: Dockerfile
-    container_name: auction_svc
-    ports:
-      - "9000:8000"
+    container_name: auction-svc
+    labels:
+      - traefik.http.routers.auctions-svc.rule=Host(`auctions.localhost`)
+      - traefik.http.routers.auctions-svc.rule=PathPrefix(`/auctions`)
+      - traefik.http.services.auctions-svc.loadbalancer.server.port=8000
+      - traefik.enable=true
+      - traefik.http.middlewares.add-api-prefix.addprefix.prefix=/api
+      - traefik.http.routers.auctions-svc.middlewares=add-api-prefix@docker
+
+  search-svc:
+    build:
+      context: search_svc
+      dockerfile: Dockerfile
+    container_name: search-svc
+    labels:
+      - traefik.http.routers.search-svc.rule=Host(`auctions.localhost`)
+      - traefik.http.routers.search-svc.rule=PathPrefix(`/search`)
+      - traefik.http.services.search-svc.loadbalancer.server.port=8000
+      - traefik.enable=true
+      - traefik.http.middlewares.add-api-prefix.addprefix.prefix=/api
+      - traefik.http.routers.search-svc.middlewares=add-api-prefix@docker
 
 networks:
   auctions:

@@ -18,4 +18,4 @@ COPY src/ .
 
 EXPOSE 8000
 
-CMD ["python", "-m", "uvicorn", "auctions.main:app", "--host", "0.0.0.0"]
+CMD ["python", "-m", "uvicorn", "search.main:app", "--host", "0.0.0.0"]

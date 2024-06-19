@@ -2,10 +2,6 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("/api/auctions/")
 def root():
-    return {"message": "root"}
-
-@app.get("/test1")
-def test1():
-    return {"message": "test1"}
+    return {"message": "hello from auctions"}
