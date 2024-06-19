@@ -54,6 +54,8 @@ services:
       - TRAEFIK_PROVIDERS_DOCKER=true
       - TRAEFIK_PROVIDERS_DOCKER_NETWORK=auctions
       - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
+    networks:
+      auctions:
 
   # keycloak identity provider service in dev mode
   idp:
