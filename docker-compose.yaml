@@ -58,6 +58,14 @@ services:
     ports:
       - "8081:8080"
 
+  auctions:
+    build:
+      context: auction_svc
+      dockerfile: Dockerfile
+    container_name: auction_svc
+    ports:
+      - "9000:8000"
+
 networks:
   auctions:
 
