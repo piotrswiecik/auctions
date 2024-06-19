@@ -9,12 +9,12 @@ logging.basicConfig(level=logging.INFO)
 
 
 def create_app() -> FastAPI:
-    app = FastAPI()
+    instance = FastAPI()
 
     if settings.init_db:
         init_db()
 
-    return app
+    return instance
 
 
 app = create_app()

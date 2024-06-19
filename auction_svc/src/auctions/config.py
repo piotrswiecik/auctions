@@ -1,10 +1,9 @@
 import os
 
-from pydantic import Field, ValidationError
 from pydantic_settings import BaseSettings
 
 
-# TODO: handle validation/type errors
+# TODO(ps): handle validation/type errors
 class Settings(BaseSettings):
     db_host: str = os.environ.get("DB_HOST", "postgres")
     db_port: int = int(os.environ.get("DB_PORT", 5432))

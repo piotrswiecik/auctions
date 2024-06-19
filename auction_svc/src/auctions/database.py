@@ -1,6 +1,5 @@
-from sqlalchemy.ext.asyncio import AsyncAttrs, create_async_engine
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.ext.asyncio import AsyncAttrs, AsyncSession, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
 
 from auctions.config import settings
 

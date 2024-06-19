@@ -6,9 +6,8 @@ import logging
 
 from sqlalchemy import create_engine
 
-from auctions.config import settings
-from auctions.database import get_db_conn_string, Base
-from auctions import models
+from auctions import models  # pylint: disable=unused-import
+from auctions.database import Base, get_db_conn_string
 
 
 def init_db():
