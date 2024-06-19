@@ -1,10 +1,25 @@
+import logging
+
 from fastapi import FastAPI
 
 from auctions.config import settings
+from auctions.seed import init_db
 
-app = FastAPI()
+logging.basicConfig(level=logging.INFO)
+
+
+def create_app() -> FastAPI:
+    app = FastAPI()
+
+    if settings.init_db:
+        init_db()
+
+    return app
+
+
+app = create_app()
 
 
 @app.get("/api/auctions/")
-def root():
+async def root():
     return {"message": "hello from auctions"}
