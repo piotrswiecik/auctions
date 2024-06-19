@@ -46,5 +46,5 @@ class Item(Base):
 
     auction_id: Mapped[UUID] = mapped_column(ForeignKey("auctions.id"), nullable=False)
     auction: Mapped[Auction] = relationship(
-        "Auction", back_populates="item", cascade="all, delete-orphan"
+        "Auction", back_populates="item", cascade="all, delete-orphan", single_parent=True
     )
