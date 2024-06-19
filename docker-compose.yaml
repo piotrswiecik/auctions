@@ -71,6 +71,8 @@ services:
       context: auction_svc
       dockerfile: Dockerfile
     container_name: auction-svc
+    depends_on:
+      - postgres
     labels:
       - traefik.http.routers.auctions-svc.rule=Host(`auctions.localhost`)
       - traefik.http.routers.auctions-svc.rule=PathPrefix(`/auctions`)
@@ -78,6 +80,15 @@ services:
       - traefik.enable=true
       - traefik.http.middlewares.add-api-prefix.addprefix.prefix=/api
       - traefik.http.routers.auctions-svc.middlewares=add-api-prefix@docker
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=development
+      - DB_PASSWORD=development
+      - DB_NAME=auctions
+      - INIT_DB=1
+    networks:
+      auctions:
 
   search-svc:
     build:
