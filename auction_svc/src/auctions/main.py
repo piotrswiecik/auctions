@@ -7,9 +7,3 @@ app = FastAPI()
 def root():
     return {"message": "hello from auctions"}
 
-
-print()
-print()
-print()
-print()
-print()
