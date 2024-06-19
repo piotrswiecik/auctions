@@ -29,12 +29,3 @@ async def get_db():
     async with AsyncSession(async_engine) as session:
         async with session.begin():
             yield session
-
-
-# models section to be moved
-
-
-class Sample(Base):
-    __tablename__ = "sample"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    data: Mapped[str] = mapped_column()

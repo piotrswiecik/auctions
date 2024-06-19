@@ -8,6 +8,7 @@ from sqlalchemy import create_engine
 
 from auctions.config import settings
 from auctions.database import get_db_conn_string, Base
+from auctions import models
 
 
 def init_db():
