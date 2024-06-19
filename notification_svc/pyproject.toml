@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "notification-service"
+name = "notifications"
 version = "0.1.0"
 description = "Auctions demo: notification microservice"
 authors = ["Piotr Święcik <piotr.swiecik@gmail.com>"]

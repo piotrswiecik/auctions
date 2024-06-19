@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "search-service"
+name = "search"
 version = "0.1.0"
 description = "Auctions demo: search microservice"
 authors = ["Piotr Święcik <piotr.swiecik@gmail.com>"]

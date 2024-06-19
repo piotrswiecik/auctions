@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bid-service"
+name = "bids"
 version = "0.1.0"
 description = "Auctions demo: bid microservice"
 authors = ["Piotr Święcik <piotr.swiecik@gmail.com>"]
