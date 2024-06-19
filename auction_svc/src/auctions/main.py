@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from auctions.config import settings
+
 app = FastAPI()
 
 
