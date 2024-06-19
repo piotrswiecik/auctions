@@ -1,0 +1,66 @@
+services:
+
+  postgres:
+    image: postgres:16-bookworm
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=development
+      - POSTGRES_USER=development
+      - POSTGRES_DB=auctions
+    ports:
+      - "5432:5432"
+    volumes:
+      - auctions_sql_data:/var/lib/postgresql/data
+    networks:
+      auctions:
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      auctions:
+  
+  mongo:
+    image: mongo:7-jammy
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=development
+      - MONGO_INITDB_ROOT_PASSWORD=development
+    ports:
+      - "27017:27017"
+    volumes:
+      - auctions_mongo_data:/var/lib/mongodb/data
+    networks:
+      auctions:
+
+  # traefik gateway service with dashboard enabled in dev (insecure mode)
+  gateway:
+    image: traefik:3.0.3
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "8080:8080"
+    command: --api.insecure=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  # keycloak identity provider service in dev mode
+  idp:
+    image: quay.io/keycloak/keycloak:25.0.0
+    container_name: keycloak
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=development
+      - KEYCLOAK_ADMIN_PASSWORD=development
+    ports:
+      - "8081:8080"
+
+networks:
+  auctions:
+
+volumes:
+  auctions_sql_data:
+  auctions_mongo_data:
