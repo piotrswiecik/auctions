@@ -44,7 +44,7 @@ class Item(Base):
     mileage: Mapped[int] = mapped_column(Integer(), nullable=False)
     image_url: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    auction_id: Mapped[UUID] = mapped_column(ForeignKey("auctions.id"), nullable=False)
+    auction_id: Mapped[UUID] = mapped_column(ForeignKey("auctions.id"), nullable=True)
     auction: Mapped[Auction] = relationship(
         "Auction", back_populates="item", cascade="all, delete-orphan", single_parent=True
     )
